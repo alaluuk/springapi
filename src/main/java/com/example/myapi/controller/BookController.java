@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.myapi.exception.ResourceNotFoundException;
@@ -21,7 +20,6 @@ import com.example.myapi.model.Book;
 import com.example.myapi.repository.BookRepository;
 
 @RestController
-@RequestMapping("/api")
 public class BookController {
     @Autowired
     private BookRepository bookRepository;
