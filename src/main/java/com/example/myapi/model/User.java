@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Table(name = "user")
 public class User implements UserDetails {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private long id;
 	
 	@Column(nullable = false, length = 50, unique = true)
 	private String username;
@@ -32,11 +32,11 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
