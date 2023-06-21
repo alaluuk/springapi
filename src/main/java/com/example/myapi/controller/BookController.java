@@ -30,10 +30,10 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long bookId)
+    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long id)
         throws ResourceNotFoundException {
-        Book Book = bookRepository.findById(bookId)
-          .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
+        Book Book = bookRepository.findById(id)
+          .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
         return ResponseEntity.ok().body(Book);
     }
     
@@ -43,10 +43,10 @@ public class BookController {
     }
 
     @PutMapping("/book/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable(value = "id") Long bookId,
+    public ResponseEntity<Book> updateBook(@PathVariable(value = "id") Long id,
          @RequestBody Book BookDetails) throws ResourceNotFoundException {
-        Book Book = bookRepository.findById(bookId)
-        .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
+        Book Book = bookRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
         Book.setIsbn(BookDetails.getIsbn());
         Book.setAuthor(BookDetails.getAuthor());
@@ -56,10 +56,10 @@ public class BookController {
     }
 
     @DeleteMapping("/book/{id}")
-    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long bookId)
+    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long id)
          throws ResourceNotFoundException {
-        Book Book = bookRepository.findById(bookId)
-       .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
+        Book Book = bookRepository.findById(id)
+       .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
         bookRepository.delete(Book);
         Map<String, Boolean> response = new HashMap<>();
