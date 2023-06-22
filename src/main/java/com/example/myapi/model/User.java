@@ -16,17 +16,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(nullable = false, length = 50, unique = true)
 	private String username;
-	
+
 	@Column(nullable = false, length = 64)
 	private String password;
 
-	public User() { }
-	
+	public User() {
+	}
+
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
@@ -53,15 +55,14 @@ public class User implements UserDetails {
 	}
 
 	public void setPassword(String password) {
-		  	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-  			this.password = passwordEncoder.encode(password);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.password = passwordEncoder.encode(password);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
 	}
-
 
 	@Override
 	public boolean isAccountNonExpired() {

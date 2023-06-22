@@ -19,23 +19,24 @@ import com.example.myapi.model.User;
 
 @RestController
 public class LoginController {
-    @Autowired AuthenticationManager authManager;
-	@Autowired JwtTokenUtil jwtUtil;
-	
+	@Autowired
+	AuthenticationManager authManager;
+	@Autowired
+	JwtTokenUtil jwtUtil;
+
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
 		try {
 			org.springframework.security.core.Authentication authentication = authManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
-							request.getUsername(), request.getPassword())
-			);
-			
+							request.getUsername(), request.getPassword()));
+
 			User user = (User) authentication.getPrincipal();
 			String accessToken = jwtUtil.generateAccessToken(user);
 			AuthResponse response = new AuthResponse(user.getUsername(), accessToken);
-			
+
 			return ResponseEntity.ok().body(response);
-			
+
 		} catch (BadCredentialsException ex) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}

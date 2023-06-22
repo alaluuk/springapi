@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,12 +30,12 @@ public class BookController {
 
     @GetMapping("/book/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long id)
-        throws ResourceNotFoundException {
+            throws ResourceNotFoundException {
         Book Book = bookRepository.findById(id)
-          .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
         return ResponseEntity.ok().body(Book);
     }
-    
+
     @PostMapping("/book")
     public Book createBook(@RequestBody Book Book) {
         return bookRepository.save(Book);
@@ -44,9 +43,9 @@ public class BookController {
 
     @PutMapping("/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable(value = "id") Long id,
-         @RequestBody Book BookDetails) throws ResourceNotFoundException {
+            @RequestBody Book BookDetails) throws ResourceNotFoundException {
         Book Book = bookRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
         Book.setIsbn(BookDetails.getIsbn());
         Book.setAuthor(BookDetails.getAuthor());
@@ -57,9 +56,9 @@ public class BookController {
 
     @DeleteMapping("/book/{id}")
     public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long id)
-         throws ResourceNotFoundException {
+            throws ResourceNotFoundException {
         Book Book = bookRepository.findById(id)
-       .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
         bookRepository.delete(Book);
         Map<String, Boolean> response = new HashMap<>();
