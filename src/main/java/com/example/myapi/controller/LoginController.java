@@ -25,7 +25,8 @@ public class LoginController {
 	JwtTokenUtil jwtUtil;
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
+	public String login(@Valid AuthRequest request) {
+		System.out.println("LOGIN");
 		try {
 			org.springframework.security.core.Authentication authentication = authManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
@@ -34,11 +35,13 @@ public class LoginController {
 			User user = (User) authentication.getPrincipal();
 			String accessToken = jwtUtil.generateAccessToken(user);
 			AuthResponse response = new AuthResponse(user.getUsername(), accessToken);
-
-			return ResponseEntity.ok().body(response);
+			String result=response.getAccessToken();
+			//return ResponseEntity.ok().body(response.getAccessToken());
+			return result;
 
 		} catch (BadCredentialsException ex) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			//return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return "false";
 		}
 	}
 }

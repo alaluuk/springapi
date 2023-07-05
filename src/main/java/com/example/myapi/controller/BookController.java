@@ -37,13 +37,13 @@ public class BookController {
     }
 
     @PostMapping("/book")
-    public Book createBook(@RequestBody Book Book) {
+    public Book createBook(Book Book) {
         return bookRepository.save(Book);
     }
 
     @PutMapping("/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable(value = "id") Long id,
-            @RequestBody Book BookDetails) throws ResourceNotFoundException {
+            Book BookDetails) throws ResourceNotFoundException {
         Book Book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
