@@ -32,7 +32,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/user")
-    public ResponseEntity<User> create(@RequestBody @Valid User user) {
+    public ResponseEntity<User> create(@Valid User user) {
         User savedUser = userRepository.save(user);
         URI UserURI = URI.create("/user/" + savedUser.getId());
         return ResponseEntity.created(UserURI).body(savedUser);
@@ -53,7 +53,7 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id,
-            @RequestBody User UserDetails) throws ResourceNotFoundException {
+            User UserDetails) throws ResourceNotFoundException {
         User User = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
 
